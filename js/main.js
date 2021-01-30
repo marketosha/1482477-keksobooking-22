@@ -1,7 +1,13 @@
 'use strict';
 
-const generateRandomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+const generateRandomInt = (min, max) => {
+  if (max > min && min >= 0) {
+    const result = Math.floor(Math.random() * (max - min + 1) + min);
+    return result >= min ? result: generateRandomInt(min, max);
+  }
+
+  throw new Error('Ошибка входных данных');
+};
 
 const getRandomInt = (begin, end) => {
   if (begin < 0 || end < 0) {
@@ -28,6 +34,5 @@ const getRandomFloat = (min, max, decimal = 2) => {
   throw new Error('Ошибка входных данных');
 };
 
-
 getRandomInt(0, 10000);
-getRandomFloat (0, 20)
+getRandomFloat(0, 20);
