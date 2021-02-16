@@ -103,8 +103,6 @@ const getTotalObject = () => ({
   location: getLocation(),
 });
 
-const createAnnouncements = new Array(ArrayNumber).fill(null).map(getTotalObject);
-
-createAnnouncements;
+const createAnnouncements = () => new Array(ArrayNumber).fill(null).map(getTotalObject);
 
 export {createAnnouncements}
