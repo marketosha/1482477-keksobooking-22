@@ -20,13 +20,13 @@ const housingData = {
     type: 'Бунгало',
     price: 0,
   },
-}
+};
 
 /* Формы объявления и ее поля */
 
-const advertisement = document.querySelector('.ad-form')
-const type = advertisement.querySelector('#type')
-const price = advertisement.querySelector('#price')
+const advertisement = document.querySelector('.ad-form');
+const type = advertisement.querySelector('#type');
+const price = advertisement.querySelector('#price');
 const timeIn = advertisement.querySelector('#timein');
 const timeOut = advertisement.querySelector('#timeout');
 
@@ -39,8 +39,12 @@ const validateTime = () => {
 
 //*  Валидация цены в зависимости от типа жилья
 
-const validatePrice= () => type.addEventListener('click', () => price.placeholder = housingData[type.value].price);
+const validatePrice= () => {
+  type.addEventListener('click', () => {
+    price.placeholder = housingData[type.value].price;
+    price.min = housingData[type.value].price;
+  });
+};
 
-validateTime()
-validatePrice ()
-
+validateTime();
+validatePrice();
