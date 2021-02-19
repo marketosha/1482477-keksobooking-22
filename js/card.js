@@ -1,7 +1,6 @@
 import {createAnnouncements} from './data.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const mapCanvas = document.querySelector('#map-canvas');
 
 const similarAnnouncements = createAnnouncements();
 
@@ -46,4 +45,5 @@ const renderCard = ({author, offer}) => {
 const renderCards = similarAnnouncements.map(renderCard);
 const renderCardsFragment = document.createDocumentFragment();
 renderCardsFragment.appendChild(renderCards[0]);
-mapCanvas.appendChild(renderCardsFragment);
+
+export {similarAnnouncements, renderCard};
