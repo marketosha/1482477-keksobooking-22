@@ -1,6 +1,6 @@
-import {activeForm, address} from './form.js';
+import {activateForm, address} from './form.js';
 import {similarAnnouncements, renderCard} from './card.js';
-import {activeFilter} from './filter.js';
+import {activateFilter} from './filter.js';
 
 /* global L:readonly */
 
@@ -11,8 +11,8 @@ const INITIAL_COORDINATES = {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    activeFilter();
-    activeForm();
+    activateFilter();
+    activateForm();
     address.value = `${INITIAL_COORDINATES.lat}, ${INITIAL_COORDINATES.lng}`;
   })
   .setView({

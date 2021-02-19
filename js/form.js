@@ -1,3 +1,11 @@
+/* Ограничения для полей формы объявления*/
+
+const FieldLimit = {
+  MIN_TITLE_LENGTH: 30,
+  MAX_TITLE_LENGTH: 100,
+  MAX_PRICE: 1000000,
+};
+
 /* Параметры жилья */
 
 const housingData = {
@@ -22,14 +30,26 @@ const housingData = {
   },
 };
 
+/*Кол-во комнат и гостей*/
+
+const ROOMS_CAPACITY = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0'],
+};
+
 /* Формы объявления и ее поля */
 
 const advertisement = document.querySelector('.ad-form');
+const title = advertisement.querySelector('#title');
+const address = advertisement.querySelector('#address');
 const type = advertisement.querySelector('#type');
 const price = advertisement.querySelector('#price');
 const timeIn = advertisement.querySelector('#timein');
 const timeOut = advertisement.querySelector('#timeout');
-const address = advertisement.querySelector('#address');
+const room = advertisement.querySelector('#room_number');
+const capacity = advertisement.querySelector('#capacity');
 const fieldsets = advertisement.querySelectorAll('fieldset');
 
 /*Форма в неактивном состоянии*/
@@ -43,7 +63,7 @@ const disableForm = () => {
 
 /*Форма в активном состоянии*/
 
-const activeForm = () => {
+const activateForm = () => {
   advertisement.classList.remove('ad-form--disabled');
   fieldsets.forEach((fieldset) => {
     fieldset.disabled = false;
@@ -52,14 +72,39 @@ const activeForm = () => {
 
 disableForm();
 
+/*Валидация заголовка объявления*/
+
+title.addEventListener('input', () => {
+  const valueLength = title.value.length;
+
+  if (valueLength < FieldLimit.MIN_TITLE_LENGTH) {
+    title.setCustomValidity(`Ещё ${FieldLimit.MIN_TITLE_LENGTH - valueLength} симв.`);
+  } else if (valueLength > FieldLimit.MAX_TITLE_LENGTH) {
+    title.setCustomValidity(`Удалите лишние ${valueLength - FieldLimit.MAX_TITLE_LENGTH} симв.`)
+  } else {
+    title.setCustomValidity('');
+  }
+
+  title.reportValidity();
+});
+
+/*Адрес*/
+
 address.readOnly = true;
 
-//*  Выбор опции для времени
+//*Валидация цены по максимальному значению
 
-const validateTime = () => {
-  timeIn.addEventListener('click', () => timeOut.value = timeIn.value);
-  timeOut.addEventListener('click', () => timeIn.value = timeOut.value);
-}
+price.addEventListener('input', () => {
+  const valueLength = price.value.length;
+
+  if (valueLength > FieldLimit.MAX_PRICE) {
+    price.setCustomValidity(`Цена не должна превышать ${FieldLimit.MAX_PRICE}`)
+  } else {
+    price.setCustomValidity('');
+  }
+
+  price.reportValidity();
+});
 
 //*  Валидация цены в зависимости от типа жилья
 
@@ -70,7 +115,29 @@ const validatePrice= () => {
   });
 };
 
+//*  Выбор опции для времени
+
+const validateTime = () => {
+  timeIn.addEventListener('click', () => timeOut.value = timeIn.value);
+  timeOut.addEventListener('click', () => timeIn.value = timeOut.value);
+}
+
 validateTime();
 validatePrice();
 
-export {activeForm, address};
+/*Валидация количества гостей и комнат*/
+
+const getRoomCapacity = () => {
+  for (let option of capacity.options) {
+    option.disabled = ROOMS_CAPACITY[room.value].includes(option.value) ? false : true;
+  }
+  capacity.value = ROOMS_CAPACITY[room.value].includes(capacity.value) ? capacity.value : ROOMS_CAPACITY[room.value][0];
+};
+
+getRoomCapacity();
+
+room.addEventListener('change', () => {
+  getRoomCapacity();
+});
+
+export {activateForm, address};
