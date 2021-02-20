@@ -1,6 +1,6 @@
 const filter = document.querySelector('.map__filters');
-const selectsFilter = filter .querySelectorAll('select');
-const featuresFilter = filter .querySelector('#housing-features');
+const selectsFilter = filter.querySelectorAll('select');
+const featuresFilter = filter.querySelector('#housing-features');
 
 /*Фильтр в неактивном состоянии*/
 
@@ -16,7 +16,7 @@ disableFilter();
 
 /*Форма в активном состоянии*/
 
-const activeFilter = () => {
+const activateFilter = () => {
   filter.classList.remove('map__filters--disabled');
   selectsFilter.forEach((select) => {
     select.disabled = false;
@@ -24,4 +24,4 @@ const activeFilter = () => {
   featuresFilter.disabled = false;
 };
 
-export {activeFilter};
+export {activateFilter};
