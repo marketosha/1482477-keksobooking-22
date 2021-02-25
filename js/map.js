@@ -1,5 +1,6 @@
 import {activateForm, address} from './form.js';
-import {similarAnnouncements, renderCard} from './card.js';
+/*import {createAnnouncements} from './data.js';
+import {template} from './card.js';*/
 import {activateFilter} from './filter.js';
 
 /* global L:readonly */
@@ -54,13 +55,13 @@ mainPinMarker.on('moveend', (evt) => {
 
 /*Добавление вспомогательные метки*/
 
-const ponyPinIcon = L.icon({
+/*const ponyPinIcon = L.icon({
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-similarAnnouncements.forEach((announcement) => {
+createAnnouncements.forEach((announcement) => {
   const ponyPin = L.marker(
     {
       lat: announcement.location.x,
@@ -73,5 +74,5 @@ similarAnnouncements.forEach((announcement) => {
 
   ponyPin
     .addTo(map)
-    .bindPopup(renderCard(announcement));
-});
+    .bindPopup(template(announcement));
+});*/

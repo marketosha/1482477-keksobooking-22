@@ -70,7 +70,7 @@ const PriceNumber = {
   MAX: 1000000,
 };
 
-const ArrayNumber = 10;
+const ArrayNumber = 1;
 
 /*Описание функций для массива*/
 

@@ -140,4 +140,32 @@ room.addEventListener('change', () => {
   getRoomCapacity();
 });
 
-export {activateForm, address};
+/*Отключение перехода на новую страницу при отправки формы*/
+
+const setUserFormSubmit = (onSuccess) =>{
+  advertisement.addEventListener('submit',(evt) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+
+    fetch(
+      'https://22.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          onSuccess();
+        } else {
+          alert('Не удалось отправить форму. Попробуйте ещё раз');
+        }
+      })
+      .catch(() => {
+        alert('Не удалось отправить форму. Попробуйте ещё раз');
+      });
+  });
+};
+
+export {activateForm, address, setUserFormSubmit};
