@@ -5,3 +5,9 @@ import './form.js';
 import './map.js';
 import './filter.js';
 import './popup.js';
+import {getData} from './api.js';
+import {renderCards} from './card.js';
+
+getData((createAnnouncements) => {
+  renderCards(createAnnouncements);
+});

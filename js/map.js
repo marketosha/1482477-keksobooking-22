@@ -1,8 +1,5 @@
 import {activateForm, address} from './form.js';
-import {createAnnouncements} from './data.js';
-import {renderCards} from './card.js';
 import {activateFilter} from './filter.js';
-import {getData} from './api.js';
 
 /* global L:readonly */
 
@@ -23,10 +20,7 @@ const map = L.map('map-canvas')
     activateForm();
     mainAddress();
   })
-  .setView({
-    lat: INITIAL_COORDINATES.lat,
-    lng: INITIAL_COORDINATES.lng,
-  }, ZOOM);
+  .setView(INITIAL_COORDINATES, ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -61,8 +55,10 @@ mainPinMarker.on('moveend', (evt) => {
 /*Сброс маркера и координат*/
 
 const resetMarkerAndAddress = () => {
-  address.value = `${INITIAL_COORDINATES.Lat}, ${INITIAL_COORDINATES.Lng}`;
-  mainPinMarker.setLatLng([INITIAL_COORDINATES.Lat, INITIAL_COORDINATES.Lng]);
+  map.setView(INITIAL_COORDINATES, ZOOM);
+  map.closePopup();
+  mainPinMarker.setLatLng(INITIAL_COORDINATES);
+  mainAddress();
 };
 
 /*Добавление вспомогательные метки*/
@@ -73,23 +69,20 @@ const ponyPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-getData()
-  .then(() => {
-    createAnnouncements.forEach((announcement) => {
-      const ponyPin = L.marker(
-        {
-          lat: announcement.location.x,
-          lng: announcement.location.y,
-        },
-        {
-          icon: ponyPinIcon,
-        },
-      );
+const renderOnMap = ({lat, lng}, popup) => {
+  const ponyPin = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon: ponyPinIcon,
+    },
+  );
 
-      ponyPin
-        .addTo(map)
-        .bindPopup(renderCards(announcement));
-    });
-  });
+  ponyPin
+    .addTo(map)
+    .bindPopup(popup);
+}
 
-export {resetMarkerAndAddress};
+export {renderOnMap, resetMarkerAndAddress};
