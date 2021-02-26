@@ -24,4 +24,4 @@ const activateFilter = () => {
   featuresFilter.disabled = false;
 };
 
-export {activateFilter};
+export {filter, activateFilter};

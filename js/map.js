@@ -1,7 +1,8 @@
 import {activateForm, address} from './form.js';
-/*import {createAnnouncements} from './data.js';
-import {template} from './card.js';*/
+import {createAnnouncements} from './data.js';
+import {renderCards} from './card.js';
 import {activateFilter} from './filter.js';
+import {getData} from './api.js';
 
 /* global L:readonly */
 
@@ -10,16 +11,22 @@ const INITIAL_COORDINATES = {
   lng: '139.69201',
 };
 
+const ZOOM = 12;
+
+const mainAddress = () => {
+  address.value = `${INITIAL_COORDINATES.lat}, ${INITIAL_COORDINATES.lng}`;
+};
+
 const map = L.map('map-canvas')
   .on('load', () => {
     activateFilter();
     activateForm();
-    address.value = `${INITIAL_COORDINATES.lat}, ${INITIAL_COORDINATES.lng}`;
+    mainAddress();
   })
   .setView({
     lat: INITIAL_COORDINATES.lat,
     lng: INITIAL_COORDINATES.lng,
-  }, 12);
+  }, ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -45,34 +52,44 @@ const mainPinMarker = L.marker(
     draggable: true,
     icon: mainPinIcon,
   },
-);
-
-mainPinMarker.addTo(map);
+).addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
+/*Сброс маркера и координат*/
+
+const resetMarkerAndAddress = () => {
+  address.value = `${INITIAL_COORDINATES.Lat}, ${INITIAL_COORDINATES.Lng}`;
+  mainPinMarker.setLatLng([INITIAL_COORDINATES.Lat, INITIAL_COORDINATES.Lng]);
+};
+
 /*Добавление вспомогательные метки*/
 
-/*const ponyPinIcon = L.icon({
+const ponyPinIcon = L.icon({
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-createAnnouncements.forEach((announcement) => {
-  const ponyPin = L.marker(
-    {
-      lat: announcement.location.x,
-      lng: announcement.location.y,
-    },
-    {
-      icon: ponyPinIcon ,
-    },
-  );
+getData()
+  .then(() => {
+    createAnnouncements.forEach((announcement) => {
+      const ponyPin = L.marker(
+        {
+          lat: announcement.location.x,
+          lng: announcement.location.y,
+        },
+        {
+          icon: ponyPinIcon,
+        },
+      );
 
-  ponyPin
-    .addTo(map)
-    .bindPopup(template(announcement));
-});*/
+      ponyPin
+        .addTo(map)
+        .bindPopup(renderCards(announcement));
+    });
+  });
+
+export {resetMarkerAndAddress};

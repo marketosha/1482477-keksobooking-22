@@ -1,3 +1,8 @@
+import {filter} from './filter.js';
+import {sendData} from './api.js';
+import {openErrorPopup, openSuccessPopup} from './popup.js';
+import {resetMarkerAndAddress} from './map.js';
+
 /* Ограничения для полей формы объявления*/
 
 const FieldLimit = {
@@ -51,6 +56,7 @@ const timeOut = advertisement.querySelector('#timeout');
 const room = advertisement.querySelector('#room_number');
 const capacity = advertisement.querySelector('#capacity');
 const fieldsets = advertisement.querySelectorAll('fieldset');
+const resetButton = advertisement.querySelector('.ad-form__reset');
 
 /*Форма в неактивном состоянии*/
 
@@ -142,30 +148,32 @@ room.addEventListener('change', () => {
 
 /*Отключение перехода на новую страницу при отправки формы*/
 
-const setUserFormSubmit = (onSuccess) =>{
-  advertisement.addEventListener('submit',(evt) => {
-    evt.preventDefault();
+const resetForm = (successBanner) => {
+  advertisement.reset();
+  filter.reset();
+  resetMarkerAndAddress();
 
-    const formData = new FormData(evt.target);
-
-    fetch(
-      'https://22.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then((response) => {
-        if (response.ok) {
-          onSuccess();
-        } else {
-          alert('Не удалось отправить форму. Попробуйте ещё раз');
-        }
-      })
-      .catch(() => {
-        alert('Не удалось отправить форму. Попробуйте ещё раз');
-      });
-  });
+  if (successBanner) {
+    openSuccessPopup();
+  }
 };
 
-export {activateForm, address, setUserFormSubmit};
+const setUserFormSubmit = (onSuccess) => {
+  advertisement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(true),
+      () => openErrorPopup(),
+      new FormData(evt.target),
+    );
+  });
+}
+
+setUserFormSubmit(resetForm);
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm(false)
+});
+
+export {activateForm, address};

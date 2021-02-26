@@ -1,14 +1,17 @@
-const getData = (onSuccess) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((createAnnouncements) => {
-      onSuccess(createAnnouncements);
-    });
-};
+import {openErrorDataPopup} from './util.js';
+
+const receiptServer = 'https://22.javascript.pages.academy/keksobooking/data';
+const departureServer = 'https://22.javascript.pages.academy/keksobooking';
+
+function getData () {
+  return fetch(receiptServer)
+    .then(
+      (response) => response.json())
+    .catch(openErrorDataPopup)
+}
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch(
-    'https://22.javascript.pages.academy/keksobooking',
+  fetch(departureServer,
     {
       method: 'POST',
       body,
@@ -18,12 +21,12 @@ const sendData = (onSuccess, onFail, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        onFail();
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
-};
+}
 
 export {getData, sendData};

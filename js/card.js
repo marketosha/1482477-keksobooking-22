@@ -1,8 +1,4 @@
-
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-
 
 const typeDictionary = {
   flat: 'Квартира',
@@ -11,7 +7,7 @@ const typeDictionary = {
   palace: 'Дворец',
 };
 
-const renderCard = (similarAnnouncements) => {
+const renderCards = (similarAnnouncements) => {
   const renderCardsFragment = document.createDocumentFragment();
 
   similarAnnouncements.forEach(({author, offer}) => {
@@ -51,12 +47,4 @@ const clearRenderCard = () => {
   cardTemplate.innerHTML = '';
 };
 
-export {renderCard, clearRenderCard};
-
-/*отрисовка testCardTemplate в map-canvas
-const canvas = document.querySelector('.map-canvas');
-const template = (elementsNumber) => {
-  canvas.appendChild(renderCardsFragment.children[elementsNumber]);
-};
-template(0);
-export {template};*/
+export {renderCards, clearRenderCard};
