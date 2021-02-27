@@ -1,8 +1,6 @@
-import {createAnnouncements} from './data.js';
+import {renderOnMap} from './map.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const similarAnnouncements = createAnnouncements();
 
 const typeDictionary = {
   flat: 'Квартира',
@@ -11,7 +9,14 @@ const typeDictionary = {
   palace: 'Дворец',
 };
 
-const renderCard = ({author, offer}) => {
+const renderCards = (similarAnnouncements) => {
+  similarAnnouncements.forEach(({author, offer, location}) => {
+    const cardElement = renderCard(author, offer);
+    renderOnMap(location, cardElement);
+  });
+};
+
+const renderCard = (author, offer) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('img').src = author.avatar;
@@ -42,8 +47,9 @@ const renderCard = ({author, offer}) => {
   return cardElement;
 };
 
-const renderCards = similarAnnouncements.map(renderCard);
-const renderCardsFragment = document.createDocumentFragment();
-renderCardsFragment.appendChild(renderCards[0]);
 
-export {similarAnnouncements, renderCard};
+const clearRenderCard = () => {
+  cardTemplate.innerHTML = '';
+};
+
+export {renderCards, clearRenderCard};
