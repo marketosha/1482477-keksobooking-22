@@ -152,6 +152,7 @@ const resetForm = (successBanner) => {
   advertisement.reset();
   filter.reset();
   resetMarkerAndAddress();
+  getRoomCapacity();
 
   if (successBanner) {
     openSuccessPopup();

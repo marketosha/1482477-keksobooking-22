@@ -1,5 +1,7 @@
 import {activateForm, address} from './form.js';
-import {activateFilter} from './filter.js';
+import {activateFilter, filterAnnouncements} from './filter.js';
+import {ArrayNumber} from './data.js';
+
 
 /* global L:readonly */
 
@@ -69,20 +71,31 @@ const ponyPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const renderOnMap = ({lat, lng}, popup) => {
-  const ponyPin = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon: ponyPinIcon,
-    },
-  );
+let ponyPins = [];
 
-  ponyPin
-    .addTo(map)
-    .bindPopup(popup);
-}
+const renderOnMap = (similarAnnouncements) => {
+  ponyPins.forEach((pin) => pin.remove());
+
+  similarAnnouncements
+    .filter(filterAnnouncements)
+    .slice(0, ArrayNumber)
+    .forEach(({lat, lng}, popup) => {
+      const ponyPin = L.marker(
+        {
+          lat,
+          lng,
+        },
+        {
+          icon: ponyPinIcon,
+        },
+      );
+
+      ponyPin
+        .addTo(map)
+        .bindPopup(popup);
+
+      ponyPins.push(ponyPin);
+    });
+};
 
 export {renderOnMap, resetMarkerAndAddress};

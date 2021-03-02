@@ -105,4 +105,4 @@ const getTotalObject = () => ({
 
 const createAnnouncements = () => new Array(ArrayNumber).fill(null).map(getTotalObject);
 
-export {createAnnouncements}
+export {createAnnouncements, ArrayNumber}
