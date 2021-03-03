@@ -9,14 +9,7 @@ const typeDictionary = {
   palace: 'Дворец',
 };
 
-const renderCards = (similarAnnouncements) => {
-  similarAnnouncements.forEach(({author, offer, location}) => {
-    const cardElement = renderCard(author, offer);
-    renderOnMap(location, cardElement);
-  });
-};
-
-const renderCard = (author, offer) => {
+const renderCard = ({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('img').src = author.avatar;
@@ -47,6 +40,14 @@ const renderCard = (author, offer) => {
   return cardElement;
 };
 
+let similarAnnouncements = {renderCard};
+
+const renderCards = () => {
+  Array.from(similarAnnouncements).forEach(({author, offer, location}) => {
+    const cardElement = renderCard(author, offer);
+    renderOnMap(location, cardElement);
+  });
+};
 
 const clearRenderCard = () => {
   cardTemplate.innerHTML = '';

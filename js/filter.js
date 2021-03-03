@@ -8,6 +8,11 @@ const featuresFilter = filter.querySelector('#housing-features');
 
 const DEFAULT_FILTER_VALUE = 'any';
 
+const NumberForPrice = {
+  LOW_PRICE: 10000,
+  HIGH_PRICE: 50000,
+};
+
 /*Фильтр в неактивном состоянии*/
 
 const disableFilter = () => {
@@ -33,17 +38,13 @@ const activateFilter = () => {
 /*Фильтрация по цене*/
 
 const getFilterByPrice = (data) => {
-  const LOW_PRICE = 10000;
-
-  const HIGH_PRICE = 50000;
-
   switch (priceFilter.value) {
     case 'low':
-      return data.offer.price < LOW_PRICE;
+      return data.offer.price < NumberForPrice.LOW_PRICE;
     case 'middle':
-      return data.offer.price >= LOW_PRICE && data.offer.price <= HIGH_PRICE;
+      return data.offer.price >= NumberForPrice.LOW_PRICE && data.offer.price <= NumberForPrice.HIGH_PRICE;
     case 'high':
-      return data.offer.price > HIGH_PRICE;
+      return data.offer.price > NumberForPrice.HIGH_PRICE;
     case 'any':
       return true;
   }
@@ -52,8 +53,8 @@ const getFilterByPrice = (data) => {
 /*Реализация по типу*/
 
 const getFilterByFeatures = (data) => {
-  const CHECKED_FEATURES = featuresFilter.querySelectorAll('input:checked');
-  return Array.from(CHECKED_FEATURES).every((input) => {
+  const checkedFeatures = featuresFilter.querySelectorAll('input:checked');
+  return Array.from(checkedFeatures).every((input) => {
     return data.offer.features.includes(input.value);
   });
 };

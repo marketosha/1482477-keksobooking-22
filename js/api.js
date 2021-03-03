@@ -3,12 +3,14 @@ import {openErrorDataPopup} from './util.js';
 const RECEIPT_SERVER = 'https://22.javascript.pages.academy/keksobooking/data';
 const DEPARTURE_SERVER = 'https://22.javascript.pages.academy/keksobooking';
 
-const getData = () => {
+const getData = (onSuccess) => {
   return fetch(RECEIPT_SERVER)
-    .then(
-      (response) => response.json())
+    .then((response) => response.json())
+    .then((announcments) => {
+      onSuccess(announcments);
+    })
     .catch(openErrorDataPopup)
-}
+};
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(DEPARTURE_SERVER,
