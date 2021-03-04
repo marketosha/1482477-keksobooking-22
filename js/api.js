@@ -6,9 +6,7 @@ const DEPARTURE_SERVER = 'https://22.javascript.pages.academy/keksobooking';
 const getData = (onSuccess) => {
   return fetch(RECEIPT_SERVER)
     .then((response) => response.json())
-    .then((announcments) => {
-      onSuccess(announcments);
-    })
+    .then(onSuccess)
     .catch(openErrorDataPopup)
 };
 

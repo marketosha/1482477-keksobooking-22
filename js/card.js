@@ -40,17 +40,17 @@ const renderCard = ({author, offer}) => {
   return cardElement;
 };
 
-let similarAnnouncements = {renderCard};
+const clearRenderCard = () => {
+  cardTemplate.innerHTML = '';
+};
 
-const renderCards = () => {
-  Array.from(similarAnnouncements).forEach(({author, offer, location}) => {
+/*Функция, чтобы подружить карту с объявлениями*/
+
+const renderCards = (similarAnnouncements) => {
+  similarAnnouncements.forEach(({author, offer, location}) => {
     const cardElement = renderCard(author, offer);
     renderOnMap(location, cardElement);
   });
 };
 
-const clearRenderCard = () => {
-  cardTemplate.innerHTML = '';
-};
-
-export {renderCards, clearRenderCard};
+export {renderCard, clearRenderCard, renderCards};

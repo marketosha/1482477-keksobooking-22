@@ -1,7 +1,7 @@
 import {activateForm, address} from './form.js';
 import {activateFilter, filterAnnouncements} from './filter.js';
 import {ArrayNumber} from './data.js';
-import {renderCards} from './card.js';
+import {renderCard} from './card.js';
 
 
 /* global L:readonly */
@@ -78,10 +78,11 @@ const renderOnMap = (similarAnnouncements) => {
   ponyPins.forEach((pin) => pin.remove());
 
   similarAnnouncements
+    .slice()
     .filter(filterAnnouncements)
     .slice(0, ArrayNumber)
-    .forEach((descriptionAnnouncement) => {
-      const {location} = descriptionAnnouncement;
+    .forEach((announcement) => {
+      const {location} = announcement;
 
       const ponyPin = L.marker(
         {
@@ -95,7 +96,7 @@ const renderOnMap = (similarAnnouncements) => {
 
       ponyPin
         .addTo(map)
-        .bindPopup(renderCards(descriptionAnnouncement));
+        .bindPopup(renderCard(announcement));
 
       ponyPins.push(ponyPin);
     });
