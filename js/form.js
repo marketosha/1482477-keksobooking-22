@@ -135,7 +135,7 @@ validatePrice();
 
 const getRoomCapacity = () => {
   for (let option of capacity.options) {
-    option.disabled = ROOMS_CAPACITY[room.value].includes(option.value) ? false : true;
+    option.disabled = !ROOMS_CAPACITY[room.value].includes(option.value);
   }
   capacity.value = ROOMS_CAPACITY[room.value].includes(capacity.value) ? capacity.value : ROOMS_CAPACITY[room.value][0];
 };
@@ -152,6 +152,7 @@ const resetForm = (successBanner) => {
   advertisement.reset();
   filter.reset();
   resetMarkerAndAddress();
+  getRoomCapacity();
 
   if (successBanner) {
     openSuccessPopup();
