@@ -7,6 +7,7 @@ import './form.js';
 import './map.js';
 import './filter.js';
 import './popup.js';
+import './card-photo.js';
 import {getData} from './api.js';
 import {renderOnMap} from './map.js';
 import {setFilterReset, setFilterChange} from './filter.js';

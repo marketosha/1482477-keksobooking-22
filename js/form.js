@@ -2,6 +2,7 @@ import {filter} from './filter.js';
 import {sendData} from './api.js';
 import {openErrorPopup, openSuccessPopup} from './popup.js';
 import {resetMarkerAndAddress} from './map.js';
+import {resetImagePreview} from './card-photo.js';
 
 /* Ограничения для полей формы объявления*/
 
@@ -153,6 +154,7 @@ const resetForm = (successBanner) => {
   filter.reset();
   resetMarkerAndAddress();
   getRoomCapacity();
+  resetImagePreview();
 
   if (successBanner) {
     openSuccessPopup();
