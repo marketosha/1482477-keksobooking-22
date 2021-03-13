@@ -12,11 +12,9 @@ const displayPreviewImage = (uploadField, previewField) => {
   const file = uploadField.files[0];
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((type) => {
-    return fileName.endsWith(type);
-  });
+  const isValidExtension = FILE_TYPES.some((type) => fileName.endsWith(type));
 
-  if (matches) {
+  if (isValidExtension) {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
@@ -27,7 +25,7 @@ const displayPreviewImage = (uploadField, previewField) => {
   }
 };
 
-const createNewImagePreview = () => {
+const imageLoadHandler = () => {
   const newImagePreview = document.createElement('img');
   newImagePreview.width = photoPreview.offsetWidth;
   newImagePreview.height = photoPreview.offsetHeight;
@@ -39,7 +37,7 @@ const createNewImagePreview = () => {
 
 avatarFileChooser.addEventListener('change', () => displayPreviewImage(avatarFileChooser, avatarPreview));
 
-photoFileChooser.addEventListener('change', createNewImagePreview);
+photoFileChooser.addEventListener('change', imageLoadHandler);
 
 const resetImagePreview = () => {
   avatarPreview.src = AVATAR_DEFAULT_IMAGE;
