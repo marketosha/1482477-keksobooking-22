@@ -4,7 +4,7 @@ import {openErrorPopup, openSuccessPopup} from './popup.js';
 import {resetMarkerAndAddress} from './map.js';
 import {resetImagePreview} from './card-photo.js';
 
-/* Ограничения для полей формы объявления*/
+//* Ограничения для полей формы объявления
 
 const FieldLimit = {
   MIN_TITLE_LENGTH: 30,
@@ -12,7 +12,7 @@ const FieldLimit = {
   MAX_PRICE: 1000000,
 };
 
-/* Параметры жилья */
+//* Параметры жилья
 
 const housingData = {
   palace: {
@@ -36,7 +36,7 @@ const housingData = {
   },
 };
 
-/*Кол-во комнат и гостей*/
+//* Кол-во комнат и гостей
 
 const ROOMS_CAPACITY = {
   '1': ['1'],
@@ -45,7 +45,7 @@ const ROOMS_CAPACITY = {
   '100': ['0'],
 };
 
-/* Формы объявления и ее поля */
+//* Формы объявления и ее поля
 
 const advertisement = document.querySelector('.ad-form');
 const title = advertisement.querySelector('#title');
@@ -59,7 +59,7 @@ const capacity = advertisement.querySelector('#capacity');
 const fieldsets = advertisement.querySelectorAll('fieldset');
 const resetButton = advertisement.querySelector('.ad-form__reset');
 
-/*Форма в неактивном состоянии*/
+//* Форма в неактивном состоянии
 
 const disableForm = () => {
   advertisement.classList.add('ad-form--disabled');
@@ -68,7 +68,7 @@ const disableForm = () => {
   });
 };
 
-/*Форма в активном состоянии*/
+//* Форма в активном состоянии
 
 const activateForm = () => {
   advertisement.classList.remove('ad-form--disabled');
@@ -79,7 +79,7 @@ const activateForm = () => {
 
 disableForm();
 
-/*Валидация заголовка объявления*/
+//* Валидация заголовка объявления
 
 title.addEventListener('input', () => {
   const valueLength = title.value.length;
@@ -95,11 +95,11 @@ title.addEventListener('input', () => {
   title.reportValidity();
 });
 
-/*Адрес*/
+//* Адрес
 
 address.readOnly = true;
 
-//*Валидация цены по максимальному значению
+//* Валидация цены по максимальному значению
 
 price.addEventListener('input', () => {
   const valueLength = price.value.length;
@@ -113,7 +113,7 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-//*  Валидация цены в зависимости от типа жилья
+//* Валидация цены в зависимости от типа жилья
 
 const validatePrice= () => {
   type.addEventListener('click', () => {
@@ -122,7 +122,7 @@ const validatePrice= () => {
   });
 };
 
-//*  Выбор опции для времени
+//* Выбор опции для времени
 
 const validateTime = () => {
   timeIn.addEventListener('click', () => timeOut.value = timeIn.value);
@@ -132,7 +132,7 @@ const validateTime = () => {
 validateTime();
 validatePrice();
 
-/*Валидация количества гостей и комнат*/
+//* Валидация количества гостей и комнат
 
 const getRoomCapacity = () => {
   for (let option of capacity.options) {
@@ -147,7 +147,7 @@ room.addEventListener('change', () => {
   getRoomCapacity();
 });
 
-/*Отключение перехода на новую страницу при отправки формы*/
+//* Отключение перехода на новую страницу при отправки формы
 
 const resetForm = (successBanner) => {
   advertisement.reset();
@@ -161,7 +161,7 @@ const resetForm = (successBanner) => {
   }
 };
 
-const setUserFormSubmit = (onSuccess) => {
+const formSubmitHandler = (onSuccess) => {
   advertisement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -173,7 +173,8 @@ const setUserFormSubmit = (onSuccess) => {
   });
 }
 
-setUserFormSubmit(resetForm);
+formSubmitHandler(resetForm);
+
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm(false)

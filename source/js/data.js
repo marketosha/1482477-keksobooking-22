@@ -1,6 +1,6 @@
 import {generateRandomInt, getRandomFloat, getRandomArrayElement, getUniqueArray} from './util.js';
 
-/* Переменные */
+//* Переменные
 
 const TITLES = [
   'Рауталахти Вилладж',
@@ -72,7 +72,7 @@ const PriceNumber = {
 
 const ArrayNumber = 10;
 
-/*Описание функций для массива*/
+//* Описание функций для массива
 
 const getAuthor = () => ({
   avatar: `img/avatars/user0${generateRandomInt(ImageNumber.MIN, ImageNumber.MAX)}.png`,

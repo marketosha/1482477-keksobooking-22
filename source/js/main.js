@@ -10,12 +10,12 @@ import './popup.js';
 import './card-photo.js';
 import {getData} from './api.js';
 import {renderOnMap} from './map.js';
-import {setFilterReset, setFilterChange} from './filter.js';
+import {filterChangeHandler, filterResetHandler} from './filter.js';
 
 const RERENDER_DELAY = 500;
 
 getData((createAnnouncements) => {
   renderOnMap(createAnnouncements);
-  setFilterReset(() => renderOnMap(createAnnouncements));
-  setFilterChange(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
+  filterResetHandler(() => renderOnMap(createAnnouncements));
+  filterChangeHandler(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
 });

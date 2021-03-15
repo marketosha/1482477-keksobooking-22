@@ -13,7 +13,7 @@ const NumberForPrice = {
   HIGH_PRICE: 50000,
 };
 
-/*Фильтр в неактивном состоянии*/
+//* Фильтр в неактивном состоянии
 
 const disableFilter = () => {
   filter.classList.add('map__filters--disabled');
@@ -25,7 +25,7 @@ const disableFilter = () => {
 
 disableFilter();
 
-/*Форма в активном состоянии*/
+//* Форма в активном состоянии
 
 const activateFilter = () => {
   filter.classList.remove('map__filters--disabled');
@@ -35,7 +35,7 @@ const activateFilter = () => {
   featuresFilter.disabled = false;
 };
 
-/*Фильтрация по цене*/
+//* Фильтрация по цене
 
 const getFilterByPrice = (data) => {
   switch (priceFilter.value) {
@@ -50,7 +50,7 @@ const getFilterByPrice = (data) => {
   }
 };
 
-/*Реализация по типу*/
+//* Реализация по типу
 
 const getFilterByFeatures = (data) => {
   const checkedFeatures = featuresFilter.querySelectorAll('input:checked');
@@ -69,13 +69,13 @@ const filterAnnouncements = (data) => {
   return filterByType && filterByRooms && filterByGuests && filterByPrice && filterByFeatures;
 };
 
-const setFilterChange = (cb) => {
+const filterChangeHandler = (cb) => {
   filter.addEventListener('change', () => {
     cb();
   });
 };
 
-const setFilterReset = (cb) => {
+const filterResetHandler = (cb) => {
   filter.addEventListener('reset', () => {
     setTimeout(() => {
       cb();
@@ -83,4 +83,4 @@ const setFilterReset = (cb) => {
   });
 };
 
-export {filter, activateFilter, setFilterChange, setFilterReset, filterAnnouncements};
+export {filter, activateFilter, filterChangeHandler, filterResetHandler, filterAnnouncements};

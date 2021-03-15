@@ -69,7 +69,7 @@ const clearRenderCard = () => {
   cardTemplate.innerHTML = '';
 };
 
-/*Функция, чтобы подружить карту с объявлениями*/
+//* Функция, чтобы подружить карту с объявлениями
 
 const renderCards = (similarAnnouncements) => {
   similarAnnouncements.forEach(({author, offer, location}) => {

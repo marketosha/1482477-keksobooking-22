@@ -32,7 +32,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-/*Добавление главного маркера*/
+//* Добавление главного маркера
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -55,7 +55,7 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-/*Сброс маркера и координат*/
+//* Сброс маркера и координат
 
 const resetMarkerAndAddress = () => {
   map.setView(INITIAL_COORDINATES, ZOOM);
@@ -64,7 +64,7 @@ const resetMarkerAndAddress = () => {
   mainAddress();
 };
 
-/*Добавление вспомогательные метки*/
+//* Добавление вспомогательные метки
 
 const ponyPinIcon = L.icon({
   iconUrl: './img/pin.svg',

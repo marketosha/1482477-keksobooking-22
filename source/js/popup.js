@@ -6,7 +6,7 @@ const closeErrorPopupButton = newErrorCard.querySelector('.error__button');
 const successCard = document.querySelector('#success').content;
 const newSuccessCard = successCard.querySelector('.success').cloneNode(true);
 
-const onPressed = (evt) => {
+const buttonPressedHandler = (evt) => {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     evt.preventDefault();
     closePopup();
@@ -14,12 +14,12 @@ const onPressed = (evt) => {
 }
 const openErrorPopup = () => {
   main.appendChild(newErrorCard);
-  document.addEventListener('keydown', onPressed);
+  document.addEventListener('keydown', buttonPressedHandler);
 }
 
 const openSuccessPopup = () => {
   main.appendChild(newSuccessCard);
-  document.addEventListener('keydown', onPressed);
+  document.addEventListener('keydown', buttonPressedHandler);
 }
 
 const closePopup = () => {
@@ -31,7 +31,7 @@ const closePopup = () => {
     main.removeChild(newSuccessCard);
   }
 
-  document.removeEventListener('keydown', onPressed);
+  document.removeEventListener('keydown',buttonPressedHandler);
 }
 
 closeErrorPopupButton.addEventListener('click', () => {
