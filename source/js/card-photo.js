@@ -8,7 +8,7 @@ const photoFileChooser = document.querySelector('.ad-form__input');
 const photoPreview = document.querySelector('.ad-form__photo');
 
 
-const imageLoadHandler = (uploadField, previewField) => {
+const displayPreviewImage = (uploadField, previewField) => {
   const file = uploadField.files[0];
   const fileName = file.name.toLowerCase();
 
@@ -25,6 +25,8 @@ const imageLoadHandler = (uploadField, previewField) => {
   }
 };
 
+const imageLoadHandler = () => displayPreviewImage(avatarFileChooser, avatarPreview);
+
 const imageCreateHandler = () => {
   const newImagePreview = document.createElement('img');
   newImagePreview.width = photoPreview.offsetWidth;
@@ -32,11 +34,10 @@ const imageCreateHandler = () => {
   newImagePreview.alt = 'Фотография жилья в аренду';
   photoPreview.innerHTML = '';
   photoPreview.append(newImagePreview);
-  imageLoadHandler(photoFileChooser, newImagePreview);
+  displayPreviewImage(photoFileChooser, newImagePreview);
 };
 
-avatarFileChooser.addEventListener('change', () => imageLoadHandler(avatarFileChooser, avatarPreview));
-
+avatarFileChooser.addEventListener('change', imageLoadHandler);
 photoFileChooser.addEventListener('change', imageCreateHandler);
 
 const resetImagePreview = () => {
