@@ -1,7 +1,5 @@
-/* global _:readonly */
-
+import _ from 'lodash'
 import './util.js';
-import './data.js';
 import './card.js';
 import './form.js';
 import './map.js';
@@ -10,12 +8,13 @@ import './popup.js';
 import './card-photo.js';
 import {getData} from './api.js';
 import {renderOnMap} from './map.js';
-import {filterChangeHandler, filterResetHandler} from './filter.js';
+import {setFilterChange, setFilterReset} from './filter.js';
+import {openErrorDataPopup} from './popup.js';
 
 const RERENDER_DELAY = 500;
 
 getData((createAnnouncements) => {
   renderOnMap(createAnnouncements);
-  filterResetHandler(() => renderOnMap(createAnnouncements));
-  filterChangeHandler(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
-});
+  setFilterReset(() => renderOnMap(createAnnouncements));
+  setFilterChange(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
+}, openErrorDataPopup);

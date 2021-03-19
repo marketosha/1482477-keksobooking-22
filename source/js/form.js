@@ -68,6 +68,9 @@ const disableForm = () => {
   });
 };
 
+disableForm();
+
+
 //* Форма в активном состоянии
 
 const activateForm = () => {
@@ -76,8 +79,6 @@ const activateForm = () => {
     fieldset.disabled = false;
   });
 };
-
-disableForm();
 
 //* Валидация заголовка объявления
 

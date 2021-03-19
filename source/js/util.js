@@ -37,28 +37,6 @@ const getUniqueArray = (elements) => {
   return uniqueArray;
 };
 
-const ALERT_SHOW_TIME = 3000;
-
-function openErrorDataPopup () {
-  let errorPopup = document.createElement('div');
-  errorPopup.style.height = '50px';
-  errorPopup.style.textAlign = 'center';
-  errorPopup.style.backgroundColor = '#ffaa99';
-  errorPopup.style.position = 'fixed';
-  errorPopup.style.padding = '10px';
-  errorPopup.style.fontSize = '20px';
-  errorPopup.style.top = 0;
-  errorPopup.style.right = 0;
-  errorPopup.style.left = 0;
-  errorPopup.textContent = 'Ошибка загрузки данных с сервера';
-
-  document.body.appendChild(errorPopup);
-
-  setTimeout(() => {
-    errorPopup.remove();
-  }, ALERT_SHOW_TIME)
-}
-
 //* Определение склонения существительного по числу
 
 const getDeclensionOfNoun = (number, titles) => {
@@ -90,4 +68,4 @@ const checkAttributeTextContent = (cardAttribute, value, additionalString) => {
   }
 };
 
-export {generateRandomInt, getRandomFloat, getRandomArrayElement, getUniqueArray, openErrorDataPopup, getDeclensionOfNoun, checkAttributeSrc, checkAttributeTextContent};
+export {generateRandomInt, getRandomFloat, getRandomArrayElement, getUniqueArray, getDeclensionOfNoun, checkAttributeSrc, checkAttributeTextContent};

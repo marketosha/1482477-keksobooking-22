@@ -1,3 +1,5 @@
+import {disableFilter} from './filter.js';
+
 const main = document.querySelector('main');
 const errorCard = document.querySelector('#error').content;
 const newErrorCard = errorCard.querySelector('.error').cloneNode(true);
@@ -46,4 +48,28 @@ newSuccessCard.addEventListener('click', () => {
   closePopup();
 });
 
-export {openErrorPopup, openSuccessPopup};
+const ALERT_SHOW_TIME = 3000;
+
+const openErrorDataPopup = () => {
+  let errorPopup = document.createElement('div');
+  errorPopup.style.height = '50px';
+  errorPopup.style.textAlign = 'center';
+  errorPopup.style.backgroundColor = '#ffaa99';
+  errorPopup.style.position = 'fixed';
+  errorPopup.style.padding = '10px';
+  errorPopup.style.fontSize = '20px';
+  errorPopup.style.top = 0;
+  errorPopup.style.right = 0;
+  errorPopup.style.left = 0;
+  errorPopup.textContent = 'Ошибка загрузки данных с сервера';
+
+  document.body.appendChild(errorPopup);
+
+  disableFilter();
+
+  setTimeout(() => {
+    errorPopup.remove();
+  }, ALERT_SHOW_TIME)
+}
+
+export {openErrorPopup, openSuccessPopup, openErrorDataPopup};

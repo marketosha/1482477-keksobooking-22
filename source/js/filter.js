@@ -69,13 +69,13 @@ const filterAnnouncements = (data) => {
   return filterByType && filterByRooms && filterByGuests && filterByPrice && filterByFeatures;
 };
 
-const filterChangeHandler = (cb) => {
+const setFilterChange = (cb) => {
   filter.addEventListener('change', () => {
     cb();
   });
 };
 
-const filterResetHandler = (cb) => {
+const setFilterReset = (cb) => {
   filter.addEventListener('reset', () => {
     setTimeout(() => {
       cb();
@@ -83,4 +83,4 @@ const filterResetHandler = (cb) => {
   });
 };
 
-export {filter, activateFilter, filterChangeHandler, filterResetHandler, filterAnnouncements};
+export {filter, disableFilter, activateFilter, setFilterChange, setFilterReset, filterAnnouncements};

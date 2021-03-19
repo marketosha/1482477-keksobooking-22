@@ -1,4 +1,3 @@
-import {renderOnMap} from './map.js';
 import {getDeclensionOfNoun,  checkAttributeSrc, checkAttributeTextContent} from './util.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -65,17 +64,5 @@ const renderCard = ({author, offer}) => {
   return cardElement;
 };
 
-const clearRenderCard = () => {
-  cardTemplate.innerHTML = '';
-};
 
-//* Функция, чтобы подружить карту с объявлениями
-
-const renderCards = (similarAnnouncements) => {
-  similarAnnouncements.forEach(({author, offer, location}) => {
-    const cardElement = renderCard(author, offer);
-    renderOnMap(location, cardElement);
-  });
-};
-
-export {renderCard, clearRenderCard, renderCards};
+export {renderCard};

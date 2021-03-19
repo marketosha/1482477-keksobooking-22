@@ -1,10 +1,7 @@
+import L from 'leaflet';
 import {activateForm, address} from './form.js';
 import {activateFilter, filterAnnouncements} from './filter.js';
-import {ArrayNumber} from './data.js';
 import {renderCard} from './card.js';
-
-
-/* global L:readonly */
 
 const INITIAL_COORDINATES = {
   lat: '35.68951',
@@ -16,6 +13,8 @@ const ZOOM = 12;
 const mainAddress = () => {
   address.value = `${INITIAL_COORDINATES.lat}, ${INITIAL_COORDINATES.lng}`;
 };
+
+const ArrayNumber = 10;
 
 const map = L.map('map-canvas')
   .on('load', () => {
