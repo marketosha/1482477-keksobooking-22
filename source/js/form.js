@@ -1,9 +1,3 @@
-import {filter} from './filter.js';
-import {sendData} from './api.js';
-import {openErrorPopup, openSuccessPopup} from './popup.js';
-import {resetMarkerAndAddress} from './map.js';
-import {resetImagePreview} from './card-photo.js';
-
 //* Ограничения для полей формы объявления
 
 const FieldLimit = {
@@ -57,7 +51,6 @@ const timeOut = advertisement.querySelector('#timeout');
 const room = advertisement.querySelector('#room_number');
 const capacity = advertisement.querySelector('#capacity');
 const fieldsets = advertisement.querySelectorAll('fieldset');
-const resetButton = advertisement.querySelector('.ad-form__reset');
 
 //* Форма в неактивном состоянии
 
@@ -148,37 +141,4 @@ room.addEventListener('change', () => {
   getRoomCapacity();
 });
 
-//* Отключение перехода на новую страницу при отправки формы
-
-const resetForm = (successBanner) => {
-  advertisement.reset();
-  filter.reset();
-  resetMarkerAndAddress();
-  getRoomCapacity();
-  resetImagePreview();
-
-  if (successBanner) {
-    openSuccessPopup();
-  }
-};
-
-const formSubmitHandler = (onSuccess) => {
-  advertisement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    sendData(
-      () => onSuccess(true),
-      () => openErrorPopup(),
-      new FormData(evt.target),
-    );
-  });
-}
-
-formSubmitHandler(resetForm);
-
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  resetForm(false)
-});
-
-export {activateForm, address};
+export {activateForm, address, advertisement, getRoomCapacity};

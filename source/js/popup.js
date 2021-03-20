@@ -1,4 +1,9 @@
 import {disableFilter} from './filter.js';
+import {filter} from './filter.js';
+import {advertisement, getRoomCapacity} from './form.js';
+import {resetImagePreview} from './card-photo.js';
+import {resetMarkerAndAddress} from './map.js'
+import {sendData} from './api.js';
 
 const main = document.querySelector('main');
 const errorCard = document.querySelector('#error').content;
@@ -7,6 +12,8 @@ const closeErrorPopupButton = newErrorCard.querySelector('.error__button');
 
 const successCard = document.querySelector('#success').content;
 const newSuccessCard = successCard.querySelector('.success').cloneNode(true);
+
+const resetButton = advertisement.querySelector('.ad-form__reset');
 
 const buttonPressedHandler = (evt) => {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -72,4 +79,39 @@ const openErrorDataPopup = () => {
   }, ALERT_SHOW_TIME)
 }
 
-export {openErrorPopup, openSuccessPopup, openErrorDataPopup};
+
+
+
+
+const resetForm = (successBanner) => {
+  advertisement.reset();
+  filter.reset();
+  resetMarkerAndAddress();
+  getRoomCapacity();
+  resetImagePreview();
+
+  if (successBanner) {
+    openSuccessPopup();
+  }
+};
+
+const formSubmitHandler = (onSuccess) => {
+  advertisement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(true),
+      () => openErrorPopup(),
+      new FormData(evt.target),
+    );
+  });
+}
+
+formSubmitHandler(resetForm);
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm(false)
+});
+
+export {openErrorDataPopup};
