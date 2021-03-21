@@ -16,9 +16,6 @@ const RERENDER_DELAY = 500;
 getData((createAnnouncements) => {
   renderOnMap(createAnnouncements);
   setFilterReset(() => renderOnMap(createAnnouncements));
-
-  const debouncedRefreshFilterForm = _.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY);
-
-  setFilterChange(debouncedRefreshFilterForm);
-  activateFilter(debouncedRefreshFilterForm);
+  setFilterChange(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
+  activateFilter();
 }, openErrorDataPopup);
