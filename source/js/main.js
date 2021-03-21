@@ -8,7 +8,7 @@ import './popup.js';
 import './card-photo.js';
 import {getData} from './api.js';
 import {renderOnMap} from './map.js';
-import {setFilterChange, setFilterReset} from './filter.js';
+import {setFilterChange, setFilterReset, activateFilter} from './filter.js';
 import {openErrorDataPopup} from './popup.js';
 
 const RERENDER_DELAY = 500;
@@ -16,5 +16,9 @@ const RERENDER_DELAY = 500;
 getData((createAnnouncements) => {
   renderOnMap(createAnnouncements);
   setFilterReset(() => renderOnMap(createAnnouncements));
-  setFilterChange(_.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY));
+
+  const debouncedRefreshFilterForm = _.debounce(() => renderOnMap(createAnnouncements), RERENDER_DELAY);
+
+  setFilterChange(debouncedRefreshFilterForm);
+  activateFilter(debouncedRefreshFilterForm);
 }, openErrorDataPopup);

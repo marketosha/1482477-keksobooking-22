@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import {activateForm, address} from './form.js';
-import {activateFilter, filterAnnouncements} from './filter.js';
+import {filterAnnouncements} from './filter.js';
 import {renderCard} from './card.js';
 
 const INITIAL_COORDINATES = {
@@ -18,7 +18,6 @@ const ArrayNumber = 10;
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    activateFilter();
     activateForm();
     mainAddress();
   })

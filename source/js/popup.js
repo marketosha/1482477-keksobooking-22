@@ -77,11 +77,7 @@ const openErrorDataPopup = () => {
   setTimeout(() => {
     errorPopup.remove();
   }, ALERT_SHOW_TIME)
-}
-
-
-
-
+};
 
 const resetForm = (successBanner) => {
   advertisement.reset();
