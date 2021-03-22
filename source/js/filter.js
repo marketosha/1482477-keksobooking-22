@@ -1,4 +1,5 @@
 const filter = document.querySelector('.map__filters');
+const disabledFilter = filter.querySelector('map__filters--disabled');
 const selectsFilter = filter.querySelectorAll('select');
 const typeFilter = filter.querySelector('#housing-type');
 const priceFilter = filter.querySelector('#housing-price');
@@ -13,27 +14,26 @@ const NumberForPrice = {
   HIGH_PRICE: 50000,
 };
 
-//* Фильтр в неактивном состоянии
-
-const disableFilter = () => {
-  filter.classList.add('map__filters--disabled');
-  selectsFilter.forEach((select) => {
-    select.disabled = true;
+const setDisabledFilter = () => {
+  selectsFilter.forEach((item) => {
+    item.disabled = !item.disabled;
   });
-  featuresFilter.disabled = true;
 };
+setDisabledFilter();
 
-disableFilter();
-
-//* Форма в активном состоянии
+//* Фильтр в активном состоянии
 
 const activateFilter = () => {
-  filter.classList.remove('map__filters--disabled');
-  selectsFilter.forEach((select) => {
-    select.disabled = false;
-  });
-  featuresFilter.disabled = false;
-};
+  filter.classList.remove(disabledFilter);
+  setDisabledFilter();
+}
+
+//* Фильтр в неактивном соостоянии
+
+const disableFilter = () => {
+  filter.classList.add(disabledFilter);
+  setDisabledFilter();
+}
 
 //* Фильтрация по цене
 
