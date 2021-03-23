@@ -1,6 +1,6 @@
+import {disableElement, activateElement} from './util.js';
+
 const filter = document.querySelector('.map__filters');
-const disabledFilter = filter.querySelector('map__filters--disabled');
-const selectsFilter = filter.querySelectorAll('select');
 const typeFilter = filter.querySelector('#housing-type');
 const priceFilter = filter.querySelector('#housing-price');
 const roomsFilter = filter.querySelector('#housing-rooms');
@@ -8,32 +8,28 @@ const guestsFilter = filter.querySelector('#housing-guests');
 const featuresFilter = filter.querySelector('#housing-features');
 
 const DEFAULT_FILTER_VALUE = 'any';
+const DISABLED_FILTER = 'map__filters--disabled';
 
 const NumberForPrice = {
   LOW_PRICE: 10000,
   HIGH_PRICE: 50000,
 };
 
-const setDisabledFilter = () => {
-  selectsFilter.forEach((item) => {
-    item.disabled = !item.disabled;
-  });
-};
-setDisabledFilter();
-
 //* Фильтр в активном состоянии
 
 const activateFilter = () => {
-  filter.classList.remove(disabledFilter);
-  setDisabledFilter();
+  filter.classList.remove(DISABLED_FILTER);
+  filter.childNodes.forEach(activateElement);
 }
 
 //* Фильтр в неактивном соостоянии
 
 const disableFilter = () => {
-  filter.classList.add(disabledFilter);
-  setDisabledFilter();
-}
+  filter.classList.add(DISABLED_FILTER);
+  filter.childNodes.forEach(disableElement);
+};
+
+disableFilter();
 
 //* Фильтрация по цене
 

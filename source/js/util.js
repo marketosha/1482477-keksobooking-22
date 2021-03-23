@@ -29,4 +29,7 @@ const checkAttributeTextContent = (cardAttribute, value, additionalString) => {
   }
 };
 
-export {getDeclensionOfNoun, checkAttributeSrc, checkAttributeTextContent};
+const disableElement = (element) => element.disabled = true;
+const activateElement = (element) => element.disabled = false;
+
+export {getDeclensionOfNoun, checkAttributeSrc, checkAttributeTextContent, disableElement, activateElement};

@@ -10,7 +10,7 @@ const INITIAL_COORDINATES = {
 
 const ZOOM = 12;
 
-const getMainAddress = () => {
+const setMainAddress = () => {
   address.value = `${INITIAL_COORDINATES.lat}, ${INITIAL_COORDINATES.lng}`;
 };
 
@@ -19,7 +19,7 @@ const ArrayNumber = 10;
 const map = L.map('map-canvas')
   .on('load', () => {
     activateForm();
-    getMainAddress();
+    setMainAddress();
   })
   .setView(INITIAL_COORDINATES, ZOOM);
 
@@ -59,7 +59,7 @@ const resetMarkerAndAddress = () => {
   map.setView(INITIAL_COORDINATES, ZOOM);
   map.closePopup();
   mainPinMarker.setLatLng(INITIAL_COORDINATES);
-  getMainAddress();
+  setMainAddress();
 };
 
 //* Добавление вспомогательные метки

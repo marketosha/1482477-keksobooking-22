@@ -1,3 +1,5 @@
+import {disableElement, activateElement} from './util.js';
+
 //* Ограничения для полей формы объявления
 
 const FieldLimit = {
@@ -50,15 +52,14 @@ const timeIn = advertisement.querySelector('#timein');
 const timeOut = advertisement.querySelector('#timeout');
 const room = advertisement.querySelector('#room_number');
 const capacity = advertisement.querySelector('#capacity');
-const fieldsets = advertisement.querySelectorAll('fieldset');
+
+const DISABLED_ADVERTISEMENT = 'ad-form--disabled';
 
 //* Форма в неактивном состоянии
 
 const disableForm = () => {
-  advertisement.classList.add('ad-form--disabled');
-  fieldsets.forEach((fieldset) => {
-    fieldset.disabled = true;
-  });
+  advertisement.classList.add(DISABLED_ADVERTISEMENT);
+  advertisement.childNodes.forEach(disableElement);
 };
 
 disableForm();
@@ -67,10 +68,8 @@ disableForm();
 //* Форма в активном состоянии
 
 const activateForm = () => {
-  advertisement.classList.remove('ad-form--disabled');
-  fieldsets.forEach((fieldset) => {
-    fieldset.disabled = false;
-  });
+  advertisement.classList.remove(DISABLED_ADVERTISEMENT);
+  advertisement.childNodes.forEach(activateElement);
 };
 
 //* Валидация заголовка объявления
